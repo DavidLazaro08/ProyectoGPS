@@ -1,0 +1,12 @@
+Cosas que aún quiero hacer o mirar en el proyecto:
+
+(He usado los cuadraditos tipo [ ] como si fuera una lista de tareas en Markdown, que vimos en algún momento. No sé si en un .txt tienen función real, pero me sirven para tenerlo organizado.)
+
+- [ ] Ver cómo mostrar más datos en consola sin que se vea todo pegado.
+- [ ] Añadir alguna mejora en los comentarios o hacerlo más claro (por si me preguntan).
+- [ ] Ver si se puede leer el CSV y hacer algo con esos datos (como contar paradas o calcular media de velocidad).
+- [ ] Revisar si hace falta guardar algo en JSON (no sé aún bien qué es eso).
+- [ ] Si me da tiempo, empezar con la siguiente fase del proyecto (procesamiento o análisis).
+- [ ] Seguir subiendo cambios a Git si hago algo más antes del lunes.
+
+De momento, lo básico está: datos generados, paradas hechas, exportado a CSV, leído de nuevo y comentado.
