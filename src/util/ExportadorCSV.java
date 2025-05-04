@@ -1,6 +1,10 @@
+package util;
+
+import modelo.GPSData;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 /* Esta clase se encargará de exportar los datos simulados a un archivo CSV.
  * Se utiliza en la fase de Captura/Generación para guardar los registros generados. */

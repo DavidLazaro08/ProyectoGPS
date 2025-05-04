@@ -1,6 +1,10 @@
+package util;
+
+import modelo.GPSData;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 
 /* Esta clase se encarga de generar los datos GPS simulados de varios autobuses.
  * Forma parte de la fase de Captura/Generación del proyecto.

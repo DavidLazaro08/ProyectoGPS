@@ -1,8 +1,4 @@
-
-/* Esta clase representa un único dato GPS de un autobús.
- * Forma parte de la primera fase del proyecto (Captura/Generación),
- * y sirve para guardar cada registro con su identificador, fecha/hora,
- * coordenadas y velocidad.*/
+package modelo;
 
 public class GPSData {
 
@@ -12,10 +8,9 @@ public class GPSData {
     private String busId;
 
     /* La fecha y hora en la que se ha registrado un dato.
-    * Usaremos el formato "ISO 8601", al ser un estándar que nos
-    * ayudará en la lectura, compatibilidad...*/
+     * Usaremos el formato "ISO 8601", al ser un estándar que nos
+     * ayudará en la lectura, compatibilidad... */
     private String timestamp;
-
 
     // Coordenadas del autobús en cada momento.
     private double latitude;
@@ -24,7 +19,7 @@ public class GPSData {
     // La velocidad en km/h.
     private double speed;
 
-    // -----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     // CONSTRUCTOR DE LA CLASE GPSDATA.
     // Lo usaremos para crear el objeto con todos los datos juntos.
@@ -37,7 +32,7 @@ public class GPSData {
         this.speed = speed;
     }
 
-    // -----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     // MÉTODOS GETTER
     // Desde los que acceder a cada dato por separado (si hace falta).
@@ -62,7 +57,7 @@ public class GPSData {
         return speed;
     }
 
-    // -----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     // MÉTODO TOSTRING
     // Para mostrar el contenido del objeto como una línea de texto CSV.

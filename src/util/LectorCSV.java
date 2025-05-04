@@ -1,7 +1,12 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+package util;
+
+import modelo.GPSData;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 
 /* Esta clase permite leer los datos previamente guardados en un archivo CSV.
  * Nos servirá en la fase de procesamiento para cargar la información desde disco. */
