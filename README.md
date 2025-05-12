@@ -22,6 +22,7 @@ Este proyecto es para la asignatura de Digitalización. La idea es simular cómo
 - `util/ExportadorCSV.java`: Guarda los datos en CSV.
 - `util/LectorCSV.java`: Carga datos desde un archivo CSV.
 - `util/ExportadorJSON.java`: Guarda última posición de cada bus en JSON.
+- `util/Depurar.java`: Mejora el manejo de errores de entrada del usuario.
 - `servicio/ProcesadorDatos.java`: Filtra y valida los datos.
 - `servicio/AnalizadorDatos.java`: Analiza velocidad y paradas.
 - `menu/MenuGPS.java`: Contiene el menú del usuario.
@@ -29,7 +30,9 @@ Este proyecto es para la asignatura de Digitalización. La idea es simular cómo
 
 ## Estado del proyecto
 
-Actualmente está implementada la captura, almacenamiento, procesamiento y parte del análisis de los datos. Las próximas fases incluirán validación avanzada, depuración y posiblemente una conexión con base de datos o interfaz gráfica.
++ Actualmente están implementadas varias fases del ciclo del dato: captura, almacenamiento, procesamiento, análisis básico y distribución.
++ Además, se ha añadido validación al leer los datos, control de errores de entrada del usuario mediante una clase `Depurar`, y una opción para modificar el recorrido de un autobús ya cargado, tal como se pide en la parte de mantenimiento de la actividad.
++ Como mejora futura se plantea implementar archivado automático o añadir una interfaz gráfica sencilla si da lugar.
 
 ---
 

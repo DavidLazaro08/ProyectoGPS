@@ -126,7 +126,8 @@ public class MenuGPS {
             System.out.println("4. Calcular velocidad media por bus");
             System.out.println("5. Contar paradas por bus");
             System.out.println("6. Exportar última posición (JSON)");
-            System.out.println("7. Volver al menú principal");
+            System.out.println("7. Simular cambio de recorrido de un autobús");
+            System.out.println("8. Volver al menú principal");
             System.out.print("Introduce una opción: ");
             opcion = Depurar.leerOpcionMenu(leer);
 
@@ -222,7 +223,21 @@ public class MenuGPS {
                     esperarEnter(leer);
                     break;
 
+
                 case 7:
+                    if (datosLeidos.isEmpty()) {
+                        System.out.println("⚠️  No hay datos cargados. Usa primero la opción 2 del menú técnico para leer el archivo CSV.");
+                        esperarEnter(leer);
+                        break;
+                    }
+
+                    System.out.print("\nIntroduce el ID del autobús para modificar su recorrido (ej: BUS01): ");
+                    String busId = leer.nextLine().trim().toUpperCase();
+                    ProcesadorDatos.simularCambioRecorrido(datosLeidos, busId);
+                    esperarEnter(leer);
+                    break;
+
+                case 8:
                     System.out.println("Volviendo al menú principal...");
                     esperarEnter(leer);
                     break;
@@ -232,7 +247,7 @@ public class MenuGPS {
                     esperarEnter(leer);
             }
 
-        } while (opcion != 7);
+        } while (opcion != 8);
     }
 
     private static void esperarEnter(Scanner leer) {

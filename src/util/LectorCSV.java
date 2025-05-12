@@ -28,7 +28,12 @@ public class LectorCSV {
             while ((linea = lector.readLine()) != null) {
                 String[] partes = linea.split(",");
 
-                if (partes.length == 5) {
+                if (partes.length != 5) {
+                    System.out.println("⚠️ Línea malformada ignorada: " + linea);
+                    continue;
+                }
+
+                try {
                     String busId = partes[0];
                     String timestamp = partes[1];
                     double latitude = Double.parseDouble(partes[2]);
@@ -37,8 +42,11 @@ public class LectorCSV {
 
                     GPSData dato = new GPSData(busId, timestamp, latitude, longitude, speed);
                     listaLeida.add(dato);
+                } catch (NumberFormatException e) {
+                    System.out.println("⚠️ Error al convertir valores numéricos en: " + linea);
                 }
             }
+
 
             lector.close();
 

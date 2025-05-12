@@ -48,5 +48,36 @@ public class ProcesadorDatos {
         return resultado;
     }
 
+    // MÉTODO: Simula un cambio en el recorrido de un autobús (cambia coordenadas en 10 registros)
+    public static void simularCambioRecorrido(ArrayList<GPSData> lista, String busId) {
+        int cambiosHechos = 0;
+
+        for (int i = 0; i < lista.size(); i++) {
+            GPSData dato = lista.get(i);
+            if (dato.getBusId().equals(busId)) {
+
+                // Le aplicamos un pequeño cambio a la latitud y longitud
+                double nuevaLat = dato.getLatitude() + 0.002;
+                double nuevaLon = dato.getLongitude() - 0.002;
+
+                // Creamos un nuevo objeto con los datos modificados
+                GPSData modificado = new GPSData(
+                        dato.getBusId(),
+                        dato.getTimestamp(),
+                        nuevaLat,
+                        nuevaLon,
+                        dato.getSpeed()
+                );
+
+                // Sustituimos en la lista
+                lista.set(i, modificado);
+                cambiosHechos++;
+
+                if (cambiosHechos == 10) break;
+            }
+        }
+
+        System.out.println("✅ Se modificaron " + cambiosHechos + " registros para " + busId);
+    }
 
 }
