@@ -10,6 +10,8 @@ import util.GeneradorDatosBus;
 import util.ExportadorCSV;
 import util.ExportadorJSON;
 import util.LectorCSV;
+import util.Depurar;
+
 
 public class MenuGPS {
 
@@ -30,8 +32,7 @@ public class MenuGPS {
             System.out.println("2. Análisis y gestión técnica");
             System.out.println("3. Salir");
             System.out.print("Introduce una opción: ");
-            opcion = leer.nextInt();
-            leer.nextLine(); // limpiar salto
+            opcion = Depurar.leerOpcionMenu(leer); // limpiar salto
 
             switch (opcion) {
                 case 1:
@@ -59,8 +60,7 @@ public class MenuGPS {
             System.out.println("2. Consultar una línea concreta");
             System.out.println("3. Volver al menú principal");
             System.out.print("Introduce una opción: ");
-            opcion = leer.nextInt();
-            leer.nextLine();
+            opcion = Depurar.leerOpcionMenu(leer);
 
             switch (opcion) {
                 case 1:
@@ -128,8 +128,7 @@ public class MenuGPS {
             System.out.println("6. Exportar última posición (JSON)");
             System.out.println("7. Volver al menú principal");
             System.out.print("Introduce una opción: ");
-            opcion = leer.nextInt();
-            leer.nextLine();
+            opcion = Depurar.leerOpcionMenu(leer);
 
             switch (opcion) {
                 case 1:
@@ -157,10 +156,18 @@ public class MenuGPS {
                         break;
                     }
 
-                    System.out.print("\nIntroduce hora de inicio (formato 2025-04-17T08:10:00): ");
-                    String inicio = leer.nextLine();
-                    System.out.print("Introduce hora final (formato 2025-04-17T08:30:00): ");
-                    String fin = leer.nextLine();
+                    String inicio, fin;
+
+                    do {
+                        System.out.print("\nIntroduce hora de inicio (formato 2025-04-17T08:10:00): ");
+                        inicio = leer.nextLine();
+                    } while (!Depurar.timestampValido(inicio));
+
+                    do {
+                        System.out.print("Introduce hora final (formato 2025-04-17T08:30:00): ");
+                        fin = leer.nextLine();
+                    } while (!Depurar.timestampValido(fin));
+
                     ArrayList<GPSData> filtrados = ProcesadorDatos.filtrarPorRangoHorario(datosLeidos, inicio, fin);
                     if (filtrados.isEmpty()) {
                         System.out.println("No hay datos en ese rango horario.");

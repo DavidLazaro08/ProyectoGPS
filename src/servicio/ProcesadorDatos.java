@@ -48,22 +48,5 @@ public class ProcesadorDatos {
         return resultado;
     }
 
-    // MÉTODO: Comprueba si unas coordenadas están dentro de un rango lógico (zona Sevilla aproximadamente).
-    public static boolean coordenadasValidas(double lat, double lon) {
-        return lat >= 37.30 && lat <= 37.45 && lon >= -6.05 && lon <= -5.95;
-    }
-
-    // MÉTODO: Comprueba si un timestamp (fecha y hora) tiene el formato correcto ISO 8601.
-    public static boolean timestampValido(String timestamp) {
-        try {
-            LocalDateTime.parse(timestamp, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-
-    }
-
 
 }
