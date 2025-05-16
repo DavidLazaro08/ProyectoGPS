@@ -2,6 +2,7 @@ package util;
 
 import modelo.GPSData;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -16,6 +17,13 @@ public class LectorCSV {
     // MÉTODO PARA LEER EL CSV Y DEVOLVER UNA LISTA DE OBJETOS GPSData
     public static ArrayList<GPSData> leer(String nombreArchivo) {
         ArrayList<GPSData> listaLeida = new ArrayList<>();
+
+        File archivo = new File(nombreArchivo);
+        if (!archivo.exists()) {
+            System.out.println("❌ El archivo '" + nombreArchivo + "' no existe.");
+            System.out.println("Usa primero la opción para generar los datos y crear el CSV.");
+            return listaLeida;
+        }
 
         try {
             BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo));

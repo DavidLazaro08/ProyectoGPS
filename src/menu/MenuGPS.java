@@ -6,11 +6,7 @@ import java.util.Scanner;
 import modelo.GPSData;
 import servicio.AnalizadorDatos;
 import servicio.ProcesadorDatos;
-import util.GeneradorDatosBus;
-import util.ExportadorCSV;
-import util.ExportadorJSON;
-import util.LectorCSV;
-import util.Depurar;
+import util.*;
 
 
 public class MenuGPS {
@@ -65,41 +61,76 @@ public class MenuGPS {
             switch (opcion) {
                 case 1:
                     if (datosLeidos.isEmpty()) {
-                        System.out.println("⚠️  No hay datos cargados. Usa primero la opción 2 del menú técnico para leer el archivo CSV.");
+                        System.out.println("⚠️  No hay datos cargados. Usa primero la opción 1 del menú técnico para generar los datos.");
                         esperarEnter(leer);
                         break;
                     }
 
                     System.out.println("\nÚltimos 3 movimientos de cada autobús:\n");
-                    for (String busId : new String[]{"BUS01", "BUS02", "BUS03"}) {
+
+                    for (String busId : new String[]{"BUS22", "BUS5", "BUS27"}) {
                         ArrayList<GPSData> filtrados = ProcesadorDatos.filtrarPorBus(datosLeidos, busId);
-                        System.out.println("→ " + busId + ":");
-                        for (int i = Math.max(0, filtrados.size() - 3); i < filtrados.size(); i++) {
-                            System.out.println(filtrados.get(i));
+                        if (!filtrados.isEmpty()) {
+                            System.out.println("→ " + busId + ":");
+                            for (int i = Math.max(0, filtrados.size() - 3); i < filtrados.size(); i++) {
+                                System.out.println(filtrados.get(i));
+                            }
+                            System.out.println();
                         }
-                        System.out.println();
                     }
+
                     esperarEnter(leer);
                     break;
 
                 case 2:
                     if (datosLeidos.isEmpty()) {
-                        System.out.println("⚠️  No hay datos cargados. Usa primero la opción 2 del menú técnico para leer el archivo CSV.");
+                        System.out.println("⚠️  No hay datos cargados. Usa primero la opción 1 del menú técnico para generar los datos.");
                         esperarEnter(leer);
                         break;
                     }
 
-                    System.out.print("\nIntroduce el ID del autobús (ej: BUS01): ");
-                    String busId = leer.nextLine().trim().toUpperCase();
-                    ArrayList<GPSData> linea = ProcesadorDatos.filtrarPorBus(datosLeidos, busId);
-                    if (linea.isEmpty()) {
-                        System.out.println("No se encontraron datos para " + busId);
-                    } else {
-                        for (GPSData d : linea) {
-                            System.out.println(d);
+                    boolean volverSubmenu = false;
+                    while (!volverSubmenu) {
+                        System.out.println("\nSelecciona la línea que quieres consultar:");
+                        System.out.println("1. BUS22");
+                        System.out.println("2. BUS5");
+                        System.out.println("3. BUS27");
+                        System.out.println("4. Volver");
+                        System.out.print("Opción: ");
+                        String opcionLinea = leer.nextLine().trim();
+
+                        String busIdElegido = "";
+
+                        switch (opcionLinea) {
+                            case "1":
+                                busIdElegido = "BUS22";
+                                break;
+                            case "2":
+                                busIdElegido = "BUS5";
+                                break;
+                            case "3":
+                                busIdElegido = "BUS27";
+                                break;
+                            case "4":
+                                volverSubmenu = true;
+                                continue;
+                            default:
+                                System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
+                                continue;
                         }
+
+                        ArrayList<GPSData> lineaSeleccionada = ProcesadorDatos.filtrarPorBus(datosLeidos, busIdElegido);
+                        if (lineaSeleccionada.isEmpty()) {
+                            System.out.println("⚠️  No se encontraron datos para " + busIdElegido);
+                        } else {
+                            System.out.println("\n📍 Datos de la línea " + busIdElegido + ":");
+                            for (GPSData d : lineaSeleccionada) {
+                                System.out.println(d);
+                            }
+                        }
+
+                        esperarEnter(leer);
                     }
-                    esperarEnter(leer);
                     break;
 
                 case 3:
@@ -127,7 +158,9 @@ public class MenuGPS {
             System.out.println("5. Contar paradas por bus");
             System.out.println("6. Exportar última posición (JSON)");
             System.out.println("7. Simular cambio de recorrido de un autobús");
-            System.out.println("8. Volver al menú principal");
+            System.out.println("8. Archivar archivos CSV antiguos");
+            System.out.println("9. Volver al menú principal");
+
             System.out.print("Introduce una opción: ");
             opcion = Depurar.leerOpcionMenu(leer);
 
@@ -143,12 +176,19 @@ public class MenuGPS {
                 case 2:
                     System.out.println("\nLeyendo datos desde 'gps_data.csv'...");
                     datosLeidos = LectorCSV.leer("gps_data.csv");
-                    System.out.println("Mostrando los primeros registros:");
-                    for (int i = 0; i < 5 && i < datosLeidos.size(); i++) {
-                        System.out.println(datosLeidos.get(i));
+
+                    if (!datosLeidos.isEmpty()) {
+                        System.out.println("Mostrando los primeros registros:");
+                        for (int i = 0; i < 5 && i < datosLeidos.size(); i++) {
+                            System.out.println(datosLeidos.get(i));
+                        }
+                    } else {
+                        System.out.println("No se encontraron datos para mostrar.");
                     }
+
                     esperarEnter(leer);
                     break;
+
 
                 case 3:
                     if (datosLeidos.isEmpty()) {
@@ -238,6 +278,11 @@ public class MenuGPS {
                     break;
 
                 case 8:
+                    System.out.println("Iniciando archivado de archivos CSV...");
+                    Archivador.archivarCSV();
+                    break;
+
+                case 9:
                     System.out.println("Volviendo al menú principal...");
                     esperarEnter(leer);
                     break;
@@ -254,4 +299,9 @@ public class MenuGPS {
         System.out.println("\nPulsa ENTER para continuar...");
         leer.nextLine();
     }
+
+    public static void setDatosLeidos(ArrayList<GPSData> nuevosDatos) {
+        datosLeidos = nuevosDatos;
+    }
+
 }

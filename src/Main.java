@@ -7,6 +7,7 @@ import menu.MenuGPS;
 public class Main {
 
     public static void main(String[] args) {
+
         MenuGPS.mostrarMenuPrincipal(); // ¡Y listo!
     }
 }
