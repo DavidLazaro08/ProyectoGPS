@@ -15,7 +15,25 @@ import java.util.ArrayList;
  *
  * Esta clase formaría parte de la fase de "Procesamiento" del ciclo del dato.
  * Todos sus métodos son estáticos porque no necesitamos crear objetos de esta clase,
- * solo usar sus funciones. */
+ * solo usar sus funciones.
+ */
+
+/* Según la actividad del proyecto, también se nos pide que expliquemos cómo se
+ * podría almacenar esta información en un sistema real de producción.
+ * Por eso, dejo aquí una reflexión sobre cómo funcionaría este mismo sistema si no
+ * estuviéramos trabajando solo con archivos y listas en Java.
+ *
+ * Aunque aquí usamos un archivo CSV como fuente de datos, en una aplicación real
+ * los registros GPS se guardarían directamente en bases de datos. Lo habitual sería
+ * usar una base como MySQL, con una tabla para gps_data que incluya columnas
+ * como busId, timestamp, latitud, longitud y velocidad. También se podrían usar sistemas
+ * NoSQL como MongoDB si quisiéramos almacenar los datos como documentos JSON.
+ *
+ * Esto permitiría trabajar con grandes volúmenes, hacer búsquedas más potentes (por rango
+ * horario, zona, bus...) y conectar el sistema con otros servicios como páginas web,
+ * aplicaciones móviles o paneles de control.
+ */
+
 
 public class ProcesadorDatos {
 
