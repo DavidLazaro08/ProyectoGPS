@@ -1,43 +1,30 @@
 package servicio;
 
 import modelo.GPSData;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/* Esta clase servirá para procesar los datos GPS una vez leídos desde el archivo CSV.
- * Aquí incluiremos funciones útiles como:
- * - Filtrar por autobús específico
- * - Filtrar por un rango horario concreto
- * - Validar si las coordenadas están dentro de un rango aceptable (zona de Sevilla)
- * - Validar si la fecha y hora tienen el formato correcto (ISO 8601)
+/* Clase que procesa los datos GPS ya cargados desde un archivo CSV.
  *
- * Esta clase formaría parte de la fase de "Procesamiento" del ciclo del dato.
- * Todos sus métodos son estáticos porque no necesitamos crear objetos de esta clase,
- * solo usar sus funciones.
- */
-
-/* Según la actividad del proyecto, también se nos pide que expliquemos cómo se
- * podría almacenar esta información en un sistema real de producción.
- * Por eso, dejo aquí una reflexión sobre cómo funcionaría este mismo sistema si no
- * estuviéramos trabajando solo con archivos y listas en Java.
+ * Esta forma parte de la fase de procesamiento del dato en el proyecto.
+ * Sirve para filtrar, buscar y modificar datos GPS una vez leídos desde el archivo.
+ * Todos los métodos son estáticos porque no hace falta crear objetos.
  *
- * Aunque aquí usamos un archivo CSV como fuente de datos, en una aplicación real
- * los registros GPS se guardarían directamente en bases de datos. Lo habitual sería
- * usar una base como MySQL, con una tabla para gps_data que incluya columnas
- * como busId, timestamp, latitud, longitud y velocidad. También se podrían usar sistemas
- * NoSQL como MongoDB si quisiéramos almacenar los datos como documentos JSON.
+ * ------------------------------------------------------------------
+ * 🧠 NOTA PERSONAL:
  *
- * Esto permitiría trabajar con grandes volúmenes, hacer búsquedas más potentes (por rango
- * horario, zona, bus...) y conectar el sistema con otros servicios como páginas web,
- * aplicaciones móviles o paneles de control.
- */
-
+ * En la actividad se nos pedía también "reflexionar" sobre cómo sería este sistema
+ * en un entorno de verdad. Aunque aquí usamos listas y archivos CSV, lo normal sería
+ * guardar los datos en una base de datos como MySQL y gestionarlos desde un backend
+ * que permitiera consultas más potentes, filtros por zona, fechas, bus... o incluso
+ * mostrar los datos en una app móvil o panel de control. */
 
 public class ProcesadorDatos {
 
-    // MÉTODO: Devuelve solo los datos que pertenezcan a un autobús concreto.
+    // ----------------------------------------------------
+    // FILTRAR DATOS POR ID DE AUTOBÚS (ej: BUS22)
+    // ----------------------------------------------------
     public static ArrayList<GPSData> filtrarPorBus(ArrayList<GPSData> lista, String busId) {
         ArrayList<GPSData> resultado = new ArrayList<>();
         for (GPSData dato : lista) {
@@ -48,8 +35,9 @@ public class ProcesadorDatos {
         return resultado;
     }
 
-    // MÉTODO: Devuelve solo los datos que estén entre dos fechas y horas concretas (ambos incluidos).
-    // El formato esperado es ISO_LOCAL_DATE_TIME (ej: 2025-04-17T08:10:00)
+    // ----------------------------------------------------
+    // FILTRAR POR RANGO HORARIO (inicio y fin incluidos)
+    // ----------------------------------------------------
     public static ArrayList<GPSData> filtrarPorRangoHorario(ArrayList<GPSData> lista, String inicio, String fin) {
         ArrayList<GPSData> resultado = new ArrayList<>();
         DateTimeFormatter formato = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -66,7 +54,9 @@ public class ProcesadorDatos {
         return resultado;
     }
 
-    // MÉTODO: Simula un cambio en el recorrido de un autobús (cambia coordenadas en 10 registros)
+    // ----------------------------------------------------
+    // SIMULAR CAMBIO DE RECORRIDO PARA UN BUS CONCRETO
+    // ----------------------------------------------------
     public static void simularCambioRecorrido(ArrayList<GPSData> lista, String busId) {
         int cambiosHechos = 0;
 
@@ -74,11 +64,10 @@ public class ProcesadorDatos {
             GPSData dato = lista.get(i);
             if (dato.getBusId().equals(busId)) {
 
-                // Le aplicamos un pequeño cambio a la latitud y longitud
+                // Añadimos una pequeña variación a las coordenadas
                 double nuevaLat = dato.getLatitude() + 0.002;
                 double nuevaLon = dato.getLongitude() - 0.002;
 
-                // Creamos un nuevo objeto con los datos modificados
                 GPSData modificado = new GPSData(
                         dato.getBusId(),
                         dato.getTimestamp(),
@@ -87,7 +76,6 @@ public class ProcesadorDatos {
                         dato.getSpeed()
                 );
 
-                // Sustituimos en la lista
                 lista.set(i, modificado);
                 cambiosHechos++;
 
@@ -97,5 +85,4 @@ public class ProcesadorDatos {
 
         System.out.println("✅ Se modificaron " + cambiosHechos + " registros para " + busId);
     }
-
 }

@@ -4,9 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/** Clase Depurar
+ *
+ * Agrupa funciones de ayuda para leer datos por consola y validar su formato.
+ * Se asegura de que las entradas sean correctas (números, fechas, coordenadas...)
+ * sin que el programa se rompa. */
+
 public class Depurar {
 
-    // Método para asegurarnos de que el usuario deja un número y no una letra.
+    // ----------------------------------------------------
+    //  Método para asegurarnos de que el usuario deja un número y no una letra.
+    // ----------------------------------------------------
     public static int leerOpcionMenu(Scanner leer) {
         int opcion;
         try {
@@ -18,8 +26,9 @@ public class Depurar {
         return opcion;
     }
 
-
-    // Valida que un timestamp tenga el formato ISO_LOCAL_DATE_TIME
+    // ----------------------------------------------------
+    // Método para validar que un timestamp tenga el formato ISO
+    // ----------------------------------------------------
     public static boolean timestampValido(String timestamp) {
         try {
             LocalDateTime.parse(timestamp, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
@@ -30,12 +39,16 @@ public class Depurar {
         }
     }
 
-    // Comprueba si unas coordenadas están dentro de un rango lógico (zona Sevilla)
+    // ----------------------------------------------------
+    // Método para comprobar si unas coordenadas están dentro de un rango lógico (zona Sevilla)
+    // ----------------------------------------------------
     public static boolean coordenadasValidas(double lat, double lon) {
         return lat >= 37.30 && lat <= 37.45 && lon >= -6.05 && lon <= -5.95;
     }
 
+    // ----------------------------------------------------
     // Método para pedir datos numéricos o velocidades sin que se rompa el programa.
+    // ----------------------------------------------------
     public static double leerDoubleValido(Scanner leer, String mensaje) {
         double valor = 0;
         boolean valido = false;
@@ -50,7 +63,5 @@ public class Depurar {
         }
         return valor;
     }
-
-
 }
 

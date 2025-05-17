@@ -2,13 +2,17 @@ package modelo;
 
 import java.util.List;
 
-/** Clase ParadasInfo
+/* Clase ParadasInfo
  *
- * Tomamos la información de las paradas reales para cada línea de bus (BUS22, BUS5, BUS27).
- * Permite obtener la lista de paradas por línea y mostrarlas por pantalla. */
+ * Contiene las paradas reales para cada línea de autobús del sistema.
+ * Se utiliza para mostrar información sobre las rutas simuladas de TUSSAM
+ * (BUS22, BUS5 y BUS27), y enlazar coordenadas con nombres de paradas reales. */
 
 public class ParadasInfo {
 
+    // ----------------------------------------------------
+    // MÉTODO PARA OBTENER LAS PARADAS DE UNA LÍNEA
+    // ----------------------------------------------------
     public static List<Parada> getParadasLinea(String busId) {
         return switch (busId) {
             case "BUS22" -> List.of(
@@ -44,17 +48,22 @@ public class ParadasInfo {
                     new Parada("Plaza del Duque", 37.392930, -5.995634),
                     new Parada("Plaza del Museo", 37.391200, -6.000000)
             );
-            // Si el bus no está definido, devuelve lista vacía.
-            default -> List.of();
+            default -> List.of(); // Línea no definida
         };
     }
 
-    // Con esto mostramos por pantalla las paradas asociadas a una línea, con sus coordenadas.
-
+    // ----------------------------------------------------
+    // MÉTODO PARA MOSTRAR LAS PARADAS POR PANTALLA
+    // ----------------------------------------------------
     public static void mostrarParadas(String busId) {
         List<Parada> paradas = getParadasLinea(busId);
-        System.out.println("\nParadas asociadas a la línea " + busId + ":");
 
+        if (paradas.isEmpty()) {
+            System.out.println("⚠️  No hay paradas registradas para la línea " + busId);
+            return;
+        }
+
+        System.out.println("\nParadas asociadas a la línea " + busId + ":");
         for (Parada p : paradas) {
             System.out.printf("• %s → (%.6f, %.6f)%n", p.getNombre(), p.getLatitud(), p.getLongitud());
         }

@@ -3,14 +3,18 @@ package servicio;
 import modelo.GPSData;
 import java.util.ArrayList;
 
-/* Esta clase analizará los datos GPS una vez procesados o filtrados.
- * Se centrará en hacer cálculos útiles como ver cuál es la velocidad media por autobús
- * o el número de paradas (velocidad = 0)
- * Formaría parte de la fase 4 del ciclo del dato: Análisis. */
+/* Clase que analiza los datos GPS ya filtrados o cargados.
+ * Forma parte de la fase de análisis del ciclo del dato.
+ *
+ * Permite hacer operaciones como:
+ * - Calcular la velocidad media de un autobús
+ * - Contar cuántas paradas (velocidad 0) ha hecho un autobús */
 
 public class AnalizadorDatos {
 
-    // MÉTODO: Calcula la velocidad media de un autobús concreto
+    // ----------------------
+    // Cálculo de velocidad media de un autobús
+    // ----------------------
     public static double velocidadMediaBus(ArrayList<GPSData> lista, String busId) {
         double suma = 0;
         int contador = 0;
@@ -25,11 +29,14 @@ public class AnalizadorDatos {
         if (contador > 0) {
             return suma / contador;
         } else {
+            // Si no hay datos para ese bus, devolvemos 0
             return 0;
         }
     }
 
-    // MÉTODO: Cuenta cuántas paradas (velocidad = 0) ha hecho un autobús concreto
+    // ----------------------
+    // Conteo de paradas (velocidad = 0)
+    // ----------------------
     public static int contarParadasBus(ArrayList<GPSData> lista, String busId) {
         int paradas = 0;
 

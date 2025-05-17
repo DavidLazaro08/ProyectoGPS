@@ -5,25 +5,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-/* Esta clase se encarga de crear archivos .json que contengan
- * la última posición conocida de cada autobús.
- * Formaría parte de la fase 5 del ciclo del dato: Distribución o Compartición. */
+/* Clase ExportadorJSON
+ *
+ * Esta clase se encarga de exportar la última posición conocida de cada autobús
+ * en un archivo con formato JSON. Representa la fase final del ciclo del dato:
+ * ➤ Distribución o Compartición de la información. */
 
 public class ExportadorJSON {
 
-    // MÉTODO: Guarda un archivo JSON con la última posición de cada bus
+    // ---------------------- MÉTODO PRINCIPAL ----------------------
+    // Recorre la lista de datos (ordenada por fecha) y guarda la última posición de cada bus.
+
     public static void exportarUltimaPosicion(ArrayList<GPSData> lista) {
-
-        // Supone que la lista ya viene ordenada por tiempo (como en este proyecto)
-
         String busActual = "";
         GPSData ultimoDato = null;
 
         for (GPSData dato : lista) {
-            // Cuando cambia de bus, se guarda el anterior
             if (!dato.getBusId().equals(busActual)) {
-                // Guardamos la posición anterior si no es la primera vuelta
                 if (ultimoDato != null) {
                     guardarJSON(ultimoDato);
                 }
@@ -32,13 +30,15 @@ public class ExportadorJSON {
             ultimoDato = dato;
         }
 
-        // Guardamos el último dato del último bus
+        // Al salir del bucle, guardamos el último dato
         if (ultimoDato != null) {
             guardarJSON(ultimoDato);
         }
     }
 
-    // MÉTODO: Crea el archivo JSON de un único GPSData
+    // ---------------------- MÉTODO AUXILIAR ----------------------
+    // Crea un archivo JSON con los datos de un único GPSData
+
     private static void guardarJSON(GPSData dato) {
         String nombreArchivo = dato.getBusId().toLowerCase() + "_status.json";
 
@@ -59,4 +59,4 @@ public class ExportadorJSON {
             e.printStackTrace();
         }
     }
-} 
+}

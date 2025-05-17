@@ -1,29 +1,24 @@
 package modelo;
 
+/** Clase que representa un único registro GPS de un autobús.
+ * Contiene identificador, fecha/hora, coordenadas y velocidad.
+ * Sirve como lugar desde el que obtener información o poder
+ * cargar, mostrar o procesar los distintos datos. */
+
 public class GPSData {
 
-    // DEFINICIÓN DE VARIABLES:
+    // ----------------------------------------------------
+    // ATRIBUTOS
+    // ----------------------------------------------------
+    private String busId;        // Identificador del autobús (ej. "BUS22")
+    private String timestamp;    // Fecha y hora en formato ISO 8601
+    private double latitude;     // Latitud del punto GPS
+    private double longitude;    // Longitud del punto GPS
+    private double speed;        // Velocidad en km/h
 
-    // Identificador de cada autobús (por ejemplo: "BUS01").
-    private String busId;
-
-    /* La fecha y hora en la que se ha registrado un dato.
-     * Usaremos el formato "ISO 8601", al ser un estándar que nos
-     * ayudará en la lectura, compatibilidad... */
-    private String timestamp;
-
-    // Coordenadas del autobús en cada momento.
-    private double latitude;
-    private double longitude;
-
-    // La velocidad en km/h.
-    private double speed;
-
-    // ------------------------------------------------------------------------------
-
-    // CONSTRUCTOR DE LA CLASE GPSDATA.
-    // Lo usaremos para crear el objeto con todos los datos juntos.
-
+    // ----------------------------------------------------
+    // CONSTRUCTOR
+    // ----------------------------------------------------
     public GPSData(String busId, String timestamp, double latitude, double longitude, double speed) {
         this.busId = busId;
         this.timestamp = timestamp;
@@ -32,11 +27,9 @@ public class GPSData {
         this.speed = speed;
     }
 
-    // ------------------------------------------------------------------------------
-
+    // ----------------------------------------------------
     // MÉTODOS GETTER
-    // Desde los que acceder a cada dato por separado (si hace falta).
-
+    // ----------------------------------------------------
     public String getBusId() {
         return busId;
     }
@@ -57,11 +50,11 @@ public class GPSData {
         return speed;
     }
 
-    // ------------------------------------------------------------------------------
-
-    // MÉTODO TOSTRING
-    // Para mostrar el contenido del objeto como una línea de texto CSV.
-    // con los valores separados por comas (formato típico de archivos CSV).
+    // ----------------------------------------------------
+    // MÉTODO toString
+    // ----------------------------------------------------
+    /* Devuelve una representación en formato CSV del objeto GPSData.
+     * Ejemplo: BUS22,2025-05-17T08:00:00,37.39,-5.90,30.0 */
 
     @Override
     public String toString() {

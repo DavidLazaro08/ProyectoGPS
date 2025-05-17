@@ -1,20 +1,21 @@
 package util;
 
 import modelo.GPSData;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-
-/* Esta clase permite leer los datos previamente guardados en un archivo CSV.
- * Nos servirá en la fase de procesamiento para cargar la información desde disco. */
+/* Clase que permite leer los datos GPS previamente guardados en un archivo CSV.
+ * Forma parte de la fase de procesamiento del ciclo del dato.
+ * A partir de un nombre de archivo, devuelve una lista de objetos GPSData. */
 
 public class LectorCSV {
 
-    // MÉTODO PARA LEER EL CSV Y DEVOLVER UNA LISTA DE OBJETOS GPSData
+    // ----------------------------------------------------
+    // MÉTODO PRINCIPAL: LECTURA DEL ARCHIVO CSV
+    // ----------------------------------------------------
     public static ArrayList<GPSData> leer(String nombreArchivo) {
         ArrayList<GPSData> listaLeida = new ArrayList<>();
 
@@ -29,13 +30,14 @@ public class LectorCSV {
             BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo));
             String linea;
 
-            // Leemos la primera línea (cabecera) y la ignoramos
+            // Saltamos la cabecera del archivo (primera línea)
             lector.readLine();
 
-            // Leemos el resto línea a línea
+            // Leemos el resto del archivo línea a línea
             while ((linea = lector.readLine()) != null) {
                 String[] partes = linea.split(",");
 
+                // Comprobamos que haya exactamente 5 columnas por línea
                 if (partes.length != 5) {
                     System.out.println("⚠️ Línea malformada ignorada: " + linea);
                     continue;
@@ -50,16 +52,16 @@ public class LectorCSV {
 
                     GPSData dato = new GPSData(busId, timestamp, latitude, longitude, speed);
                     listaLeida.add(dato);
+
                 } catch (NumberFormatException e) {
                     System.out.println("⚠️ Error al convertir valores numéricos en: " + linea);
                 }
             }
 
-
             lector.close();
 
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo CSV.");
+            System.out.println("❌ Error al leer el archivo CSV.");
             e.printStackTrace();
         }
 

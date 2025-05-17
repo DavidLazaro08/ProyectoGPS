@@ -5,23 +5,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/* Esta clase contiene rutas simuladas de autobuses urbanos de Sevilla,
- * basadas en las líneas reales 22, 5 y 27 de TUSSAM, que suelo usar.
+/* Clase RutaTussam
  *
- * Cada método genera un recorrido entre 5 paradas reales, usando coordenadas
- * auténticas obtenidas de Google Maps. El recorrido incluye pasos intermedios
- * para simular el desplazamiento del autobús, y en cada parada se marca
- * una velocidad de 0 km/h para representar la detención.
+ * Contiene rutas simuladas basadas en líneas reales de autobús urbano de Sevilla
+ * que personalmente suelo usar: BUS22, BUS5 y BUS27.
  *
- * Esta clase nos permite trabajar con datos realistas sin necesidad de sensores,
- * y sustituye a los datos aleatorios generados por defecto. */
+ * Cada método genera un recorrido GPS completo entre distintas paradas,
+ * incluyendo pasos intermedios con una velocidad constante de 30 km/h
+ * y paradas fijas con velocidad 0 km/h.
+ *
+ * Las coordenadas han sido seleccionadas manualmente desde Google Maps
+ * y se corresponden con paradas reales que suelo utilizar en Sevilla. */
 
 public class RutaTussam {
 
-    /* Ruta simulada de la línea 22 (Parque Alcosa - Ponce de León).
-     * Se han elegido 5 paradas representativas del recorrido, incluyendo puntos
-     * habituales de paso por el centro de Sevilla. */
-
+    // ----------------------------------------------------
+    // RUTA PARA LÍNEA 22: Parque Alcosa → Ponce de León
+    // ----------------------------------------------------
     public static List<GPSData> generarRutaLinea22(int pasosEntreParadas) {
         List<GPSData> ruta = new ArrayList<>();
 
@@ -36,7 +36,6 @@ public class RutaTussam {
                 new Parada("Puerta de Carmona", 37.387905, -5.983290),
                 new Parada("Ponce de León", 37.392323, -5.987849)
         );
-
 
         LocalDateTime tiempo = LocalDateTime.of(2025, 5, 17, 8, 0);
         DateTimeFormatter formato = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -54,23 +53,20 @@ public class RutaTussam {
                 double lat = lat1 + (lat2 - lat1) * paso / pasosEntreParadas;
                 double lon = lon1 + (lon2 - lon1) * paso / pasosEntreParadas;
 
-                String timestamp = tiempo.format(formato);
-                ruta.add(new GPSData("BUS22", timestamp, lat, lon, 30));
+                ruta.add(new GPSData("BUS22", tiempo.format(formato), lat, lon, 30));
                 tiempo = tiempo.plusMinutes(1);
             }
 
-            String timestampParada = tiempo.format(formato);
-            ruta.add(new GPSData("BUS22", timestampParada, lat2, lon2, 0));
+            ruta.add(new GPSData("BUS22", tiempo.format(formato), lat2, lon2, 0));
             tiempo = tiempo.plusMinutes(1);
         }
 
         return ruta;
     }
 
-    /* Ruta simulada de la línea 5 (Plaza del Duque - Santa Aurelia).
-     * Las paradas elegidas cubren el recorrido completo desde el centro hasta
-     * la zona de La Plata, Tamarguillo y Santa Aurelia. */
-
+    // ----------------------------------------------------
+    // RUTA PARA LÍNEA 5: Torre Sevilla → Santa Aurelia
+    // ----------------------------------------------------
     public static List<GPSData> generarRutaLinea5(int pasosEntreParadas) {
         List<GPSData> ruta = new ArrayList<>();
 
@@ -102,23 +98,20 @@ public class RutaTussam {
                 double lat = lat1 + (lat2 - lat1) * paso / pasosEntreParadas;
                 double lon = lon1 + (lon2 - lon1) * paso / pasosEntreParadas;
 
-                String timestamp = tiempo.format(formato);
-                ruta.add(new GPSData("BUS5", timestamp, lat, lon, 30));
+                ruta.add(new GPSData("BUS5", tiempo.format(formato), lat, lon, 30));
                 tiempo = tiempo.plusMinutes(1);
             }
 
-            String timestampParada = tiempo.format(formato);
-            ruta.add(new GPSData("BUS5", timestampParada, lat2, lon2, 0));
+            ruta.add(new GPSData("BUS5", tiempo.format(formato), lat2, lon2, 0));
             tiempo = tiempo.plusMinutes(1);
         }
 
         return ruta;
     }
 
-    /* Ruta simulada de la línea 27 (Andalucía Residencial - Plaza del Duque).
-     * Se incluyen paradas desde la zona de Sevilla Este (incluyendo el Palacio
-     * de Congresos) hasta el centro histórico. */
-
+    // ----------------------------------------------------
+    // RUTA PARA LÍNEA 27: Sevilla Este → Museo
+    // ----------------------------------------------------
     public static List<GPSData> generarRutaLinea27(int pasosEntreParadas) {
         List<GPSData> ruta = new ArrayList<>();
 
@@ -133,7 +126,6 @@ public class RutaTussam {
                 new Parada("Plaza del Duque", 37.392930, -5.995634),
                 new Parada("Plaza del Museo", 37.391200, -6.000000)
         );
-
 
         LocalDateTime tiempo = LocalDateTime.of(2025, 5, 17, 10, 0);
         DateTimeFormatter formato = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -151,13 +143,11 @@ public class RutaTussam {
                 double lat = lat1 + (lat2 - lat1) * paso / pasosEntreParadas;
                 double lon = lon1 + (lon2 - lon1) * paso / pasosEntreParadas;
 
-                String timestamp = tiempo.format(formato);
-                ruta.add(new GPSData("BUS27", timestamp, lat, lon, 30));
+                ruta.add(new GPSData("BUS27", tiempo.format(formato), lat, lon, 30));
                 tiempo = tiempo.plusMinutes(1);
             }
 
-            String timestampParada = tiempo.format(formato);
-            ruta.add(new GPSData("BUS27", timestampParada, lat2, lon2, 0));
+            ruta.add(new GPSData("BUS27", tiempo.format(formato), lat2, lon2, 0));
             tiempo = tiempo.plusMinutes(1);
         }
 
