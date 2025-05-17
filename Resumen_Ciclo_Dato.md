@@ -1,4 +1,19 @@
 
+Resumen del Ciclo de Vida del Dato – David Gutiérrez
+
+# Resumen del Ciclo de Vida del Dato
+
+En este documento se describen las fases del ciclo de vida del dato implementadas en el proyecto GPS Bus.
+
+1. **Captura / Generación**: Datos GPS simulados (aleatorios y rutas reales).
+2. **Almacenamiento**: CSV (`gps_data.csv`), con posibilidad de archivar versiones antiguas.
+3. **Procesamiento**: Filtrado por bus, rango horario, simulación de cambio de ruta.
+4. **Análisis**: Velocidad media y conteo de paradas.
+5. **Distribución**: Exportación de última posición a JSON.
+6. **Visualización**: Menú interactivo en consola.
+7. **Depuración / Limpieza**: Validaciones, manejo de errores y comentarios coherentes.
+8. **Toma de decisiones / Próximos pasos**: Propuestas de mejoras como interfaz gráfica y base de datos.
+
 
 ### 📍 FASE 1 – Captura o Generación
 
